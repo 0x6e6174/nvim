@@ -1,5 +1,5 @@
 local opt = vim.opt
-
+ 
 opt.expandtab = true
 opt.smarttab = true
 opt.shiftwidth = 4
@@ -26,8 +26,8 @@ opt.background = 'light'
 
 opt.updatetime = 50
 
+opt.clipboard = "unnamedplus"
+
 border_style = 'rounded'
 
 vim.cmd('set showtabline=2')
-vim.cmd('colorscheme gruvbox')
-vim.cmd('hi SpellBad gui=undercurl guifg=#cc241c')
