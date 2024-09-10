@@ -61,11 +61,11 @@ function get_diagnostic_count()
     if warning_count + error_count == 0 then
         return ''
     elseif error_count == 0 then
-        return '[%#CustomWarnHl#' .. ' ' .. warning_count .. '%*]'
+        return '[%#CustomWarnHl#' .. 'W ' .. warning_count .. '%*]'
     elseif warning_count == 0 then
-        return "[%#CustomErrorHl# " .. error_count .. '%*]'
+        return "[%#CustomErrorHl#E " .. error_count .. '%*]'
     end
-    return "[%#CustomErrorHl# " .. error_count .. '%*] [%#CustomWarnHl#' .. ' ' .. warning_count .. '%*]'
+    return "[%#CustomErrorHl#E " .. error_count .. '%*] [%#CustomWarnHl#' .. 'W ' .. warning_count .. '%*]'
 end
 
 function get_buffer_perms()
@@ -104,10 +104,11 @@ local function statusline()
     local rm_highlight = '%*'
 
     return string.format(
-        "%s [%s] %s%s%s%s%s%s%s%s%s ",
+        "%s [%s] %s%s%s%s%s%s%s%s%s%s%s ",
         mode_highlight,
         mode_name,
         rm_highlight,
+        "%#StatusLine#",
         buffer,
         modified,
         linecol,

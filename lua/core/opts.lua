@@ -2,8 +2,9 @@ local opt = vim.opt
  
 opt.expandtab = true
 opt.smarttab = true
-opt.shiftwidth = 4
-opt.tabstop = 4
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.shiftround = true
 
 opt.hlsearch = true
 opt.incsearch = true
@@ -28,6 +29,21 @@ opt.updatetime = 50
 
 opt.clipboard = "unnamedplus"
 
-border_style = 'rounded'
+opt.title = true
+opt.titlelen = 0
 
-vim.cmd('set showtabline=2')
+opt.laststatus = 3
+opt.showtabline = 2
+opt.signcolumn = 'auto:2'
+
+opt.showbreak = '⤷  ' -- ↪	⤷
+opt.listchars = {
+	tab = '  ',
+	extends = '⟫',
+	precedes = '⟪',
+	conceal = '',
+	nbsp = '␣',
+	trail = '·'
+}
+
+border_style = 'rounded'
