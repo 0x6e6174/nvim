@@ -17,8 +17,22 @@ return {
                         content = {
                             { "name", zindex = 10 },
                             { "clipboard", zindex = 10 },
+                            {
+                                "git_status",
+                                zindex = 20,
+                                align = "right",
+                                hide_when_expanded = true,
+                                symbols = {
+                                    added          = 'A',
+                                    modified       = 'M',
+                                    removed        = 'R',
+                                    ignored        = 'I',
+                                    untracked      = 'U',
+                                    staged         = 'S',
+                                }
+
+                            },
                             { "diagnostics", errors_only = true, zindex = 20, align = "right", hide_when_expanded = true },
-                            { "git_status", zindex = 20, align = "right", hide_when_expanded = true },
                         },
                     },
                 },
@@ -31,8 +45,20 @@ return {
                             { "clipboard", zindex = 10 },
                             { "bufnr", zindex = 10 },
                             { "modified", zindex = 20, align = "right" },
+                            {
+                                "git_status",
+                                zindex = 20,
+                                align = "right",
+                                symbols = {
+                                    added          = 'A',
+                                    modified       = 'M',
+                                    removed        = 'R',
+                                    ignored        = 'I',
+                                    untracked      = 'U',
+                                    staged         = 'S',
+                                }
+                            },
                             { "diagnostics",  zindex = 20, align = "right" },
-                            { "git_status", zindex = 20, align = "right" },
                         },
                     },
                 },
