@@ -1,33 +1,31 @@
-function capitalize_head_exclusive(str)
+function capitalize_head(str)
     str = string.lower(str)
     str = string.gsub(str, "^%l", string.upper)
     return str
 end
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
-local max_width = math.min(math.floor(vim.o.columns * 0.7), 100)
-local max_height = math.min(math.floor(vim.o.lines * 0.3), 30)
+local signs = {
+  [vim.diagnostic.severity.ERROR] = "E",
+  [vim.diagnostic.severity.WARN] = "W",
+  [vim.diagnostic.severity.HINT] = "H",
+  [vim.diagnostic.severity.INFO] = "I"
+}
 
 vim.diagnostic.config({
   underline = true,
   update_in_insert = true,
   severity_sort = true,
-  virtual_text = false and {
-    spacing = 1,
-    prefix = '', -- TODO: in nvim-0.10.0 this can be a function, so format won't be necessary
-    format = function(d)
-      local level = vim.diagnostic.severity[d.severity]
-      return string.format('%s %s', signs[capitalize_head_exclusive(level)], d.message)
-    end,
+  virtual_text = false,
+
+  signs = {
+    severity = { min = vim.diagnostic.severity.HINT },
+    text = signs,
+    priority = 4,
   },
+
   float = {
-    max_width = max_width,
-    max_height = max_height,
+    max_width = math.min(math.floor(vim.o.columns * 0.7), 100),
+    max_height = math.min(math.floor(vim.o.lines * 0.3), 30),
     border = border_style,
     title = { { '  ', 'DiagnosticFloatTitleIcon' }, { 'Problems  ', 'DiagnosticFloatTitle' } },
     focusable = false,
@@ -35,11 +33,14 @@ vim.diagnostic.config({
     source = 'if_many',
     prefix = function(diag)
       local level = vim.diagnostic.severity[diag.severity]
-      local prefix = string.format('%s ', signs[capitalize_head_exclusive(level)])
+      local prefix = string.format('%s ', signs[diag.severity])
       return prefix, 'Diagnostic' .. level:gsub('^%l', string.upper)
     end,
   },
 })
 
-vim.cmd [[ autocmd! CursorHold * lua vim.diagnostic.open_float()]]
+for severity, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. capitalize_head(vim.diagnostic.severity[severity])
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
