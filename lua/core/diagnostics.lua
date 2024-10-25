@@ -24,10 +24,8 @@ vim.diagnostic.config({
   },
 
   float = {
-    max_width = math.min(math.floor(vim.o.columns * 0.7), 100),
-    max_height = math.min(math.floor(vim.o.lines * 0.3), 30),
     border = border_style,
-    title = { { '  ', 'DiagnosticFloatTitleIcon' }, { 'Problems  ', 'DiagnosticFloatTitle' } },
+    title = { { 'lsp diagnostics', 'DiagnosticFloatTitleIcon' }, { 'Problems  ', 'DiagnosticFloatTitle' } },
     focusable = false,
     scope = 'line',
     source = 'if_many',
@@ -37,6 +35,13 @@ vim.diagnostic.config({
       return prefix, 'Diagnostic' .. level:gsub('^%l', string.upper)
     end,
   },
+})
+
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
+  callback = function ()
+    vim.diagnostic.open_float()
+  end
 })
 
 for severity, icon in pairs(signs) do

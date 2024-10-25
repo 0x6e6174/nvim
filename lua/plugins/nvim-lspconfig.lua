@@ -36,13 +36,6 @@ local handlers =  {
   ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border, focus = false}),
 }
 
--- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
---   group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
---   callback = function ()
---     vim.lsp.buf.hover(nil, {focus=false, scope='line'})
---   end
--- })
-
 return {
     event={ "VeryLazy" },
     'neovim/nvim-lspconfig',
