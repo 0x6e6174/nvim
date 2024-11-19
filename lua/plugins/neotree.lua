@@ -44,7 +44,7 @@ return {
                             { "name", zindex = 10 },
                             { "clipboard", zindex = 10 },
                             { "bufnr", zindex = 10 },
-                            { "modified", zindex = 20, align = "right" },
+                            { "modified", zindex = 20, align = "right", symbol = 'M' },
                             {
                                 "git_status",
                                 zindex = 20,
